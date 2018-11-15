@@ -1,7 +1,9 @@
 #!/bin/bash
 
 case $BLOCK_BUTTON in
-	1) #call connect/disconnect
+	1) #exec ./connection-conn	#cal connet/disconnect
 	3) #call unit
-	4) #call next nework
-	5) #call prev network
+	4) exec connection-next		#call next nework
+	5) exec connection-prev		#call prev network
+
+echo "${connection-info}"
