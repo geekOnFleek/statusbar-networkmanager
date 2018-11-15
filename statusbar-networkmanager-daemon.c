@@ -148,6 +148,8 @@ void init_output()
 
 int send_output()
 {
+	read_signal();
+	write_active_network();
 	printf("Sending Message\n");
 	strncpy(message.mesg_text, "CLI", 3);
 	printf("Added Header %s.\n", message.mesg_text);
@@ -281,13 +283,10 @@ int main(void)
 	write_active_network();
 	printf("%s\n", output);	
 	
-	pthread_t refresh_thread;
-	pthread_create(&refresh_thread, NULL, (void*) refresh, NULL);
 	pthread_t comm_thread;
 	pthread_create(&comm_thread, NULL, (void*) communication, NULL);		
 
 	pthread_join(comm_thread, NULL);
-	pthread_join(refresh_thread, NULL);
 	
 	printf("Ending programm.");
 
