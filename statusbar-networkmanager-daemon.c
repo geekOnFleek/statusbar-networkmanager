@@ -18,7 +18,6 @@
 
 /*
 	TODO:
-		- handles communication with daemon (daemon runs as root)
 		- reacts on mouse-events from bar: 
 			* scrolling makes network-name change
 			* left-click establishes connection
@@ -44,7 +43,6 @@ int in_msgid, out_msgid = 0;
 
 int read_networks()
 {
-	//return EXCEPTION_NOT_IMPLEMENTED;
 	FILE *config = fopen("/home/jan/.config/i3bar-networkmanagement", "r");
 	if(config == NULL) {
 		printf("File couldn't be opened.");
@@ -65,7 +63,6 @@ int read_networks()
 
 int read_signal()
 {
-	//return EXCEPTION_NOT_IMPLEMENTED;
 	if(!connected){
 		output[4] = '-';
 		output[5] = '0';
@@ -97,7 +94,6 @@ int read_signal()
 
 int write_active_network()
 {
-	//return EXCEPTION_NOT_IMPLEMENTED;
 	if(active_network == NULL)
 		return NULLPOINTER_EXCEPTION;
 	for(int i=0; i<3; i++){
@@ -167,7 +163,6 @@ int send_output()
 
 int connect()
 {
-	//return EXCEPTION_NOT_IMPLEMENTED;
 	FILE *sub = NULL;
 	if(strncmp(active_network, "RGB", 3) == 0){
 		sub = popen("wpa_supplicant -B -iwlp5s0 -c/root/rgb.conf", "r");
@@ -285,7 +280,6 @@ int main(void)
 	printf("%s\n", output);
 	write_active_network();
 	printf("%s\n", output);	
-	//while loop with reading parms and then printing the updated string	
 	
 	pthread_t refresh_thread;
 	pthread_create(&refresh_thread, NULL, (void*) refresh, NULL);
