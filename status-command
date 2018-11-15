@@ -1,0 +1,7 @@
+#!/bin/bash
+
+case $BLOCK_BUTTON in
+	1) #call connect/disconnect
+	3) #call unit
+	4) #call next nework
+	5) #call prev network
