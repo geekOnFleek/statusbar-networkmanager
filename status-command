@@ -1,10 +1,10 @@
 #!/bin/bash
 
-case $BLOCK_BUTTON in
+#case $BLOCK_BUTTON in
 #	1) #exec ./connection-conn	#call connect/disconnect
-	3) exec connection-unit		#call unit
-	4) exec connection-prev		#call next nework
-	5) exec connection-next		#call prev network
-esac
+#	3) exec connection-unit		#call unit
+#	4) exec connection-prev		#call next nework
+#	5) exec connection-next		#call prev network
+#esac
 
 echo "${./connection-info}"
