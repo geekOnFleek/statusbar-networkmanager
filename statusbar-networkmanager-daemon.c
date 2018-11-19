@@ -150,17 +150,30 @@ int send_output()
 {
 	read_signal();
 	write_active_network();
-	printf("Sending Message\n");
+	//printf("Sending Message\n");
 	strncpy(message.mesg_text, "CLI", 3);
-	printf("Added Header %s.\n", message.mesg_text);
+	//printf("Added Header %s.\n", message.mesg_text);
 	strncpy((message.mesg_text + sizeof(char)*3), output, 9);
-	printf("Added Body %s.\n", message.mesg_text);
+	//printf("Added Body %s.\n", message.mesg_text);
 	message.mesg_type = 5;
-	printf("Out-channel is: %d.\n", out_msgid);
+	//printf("Out-channel is: %d.\n", out_msgid);
 	msgctl(in_msgid, IPC_RMID, NULL);
 	msgsnd(out_msgid, &message, sizeof(message), 0);
-	printf("Sent Message: %s\n", message.mesg_text);
+	//printf("Sent Message: %s\n", message.mesg_text);
 	return 1;
+}
+
+int disconnect()
+{
+	if(!connected)
+		return FUNCTION_SUCCESS;
+	FILE *sub = NULL;
+	sub = popen("kill all wpa_supplicant");
+	if(sub == NULL)
+		return NULLPONTER_EXCEPTION;
+	sleep(3);
+	pclose(sub);
+	return FUNCTION_SUCCESS;
 }
 
 int connect()
@@ -201,6 +214,8 @@ int parse_command(char *text)
 		return connect();
 	if(strncmp(text, "UNIT", 4) == 0)
 		unit = (unit + 1) % 2;
+	if(strncmp(text, "DISC", 4) == 0)
+		return disconnect();
 	return 1;
 }
 
@@ -209,12 +224,12 @@ int communication(){
 	in_msgid = msgget(in_key, 0666 | IPC_CREAT);
 	out_key = ftok("/home/jan/.uscripts/wifiservice/connection-info.c", 68);
 	out_msgid = msgget(out_key, 0666 | IPC_CREAT);
-	printf("%d, %d\n", in_msgid, out_msgid);
+	//printf("%d, %d\n", in_msgid, out_msgid);
 	active = 1;	
 	while(active) {
 		in_msgid = msgget(in_key, 0666 | IPC_CREAT);
 		msgrcv(in_msgid, &message, sizeof(message), 2, 0);
-		printf("Message received: %s \t|%d \n", message.mesg_text, message.mesg_type);
+		//printf("Message received: %s \t|%d \n", message.mesg_text, message.mesg_type);
 		if(strncmp(message.mesg_text, "CLI", 3) == 0)
 			strncpy(message.mesg_text, "---", 3);
 		if(strncmp(message.mesg_text, "DAE", 3) == 0)
