@@ -1,12 +1,12 @@
 #!/bin/bash
 
 case $BLOCK_BUTTON in
-	1) bin/connection-conn;;
-	2) bin/connection-disc;;
-    3) bin/connection-unit;;
-	4) bin/connection-prev;;
-	5) bin/connection-next;;	
+	1) /home/jan/documents/code/statusbar-networkmanager/bin/connection-conn;;
+	2) /home/jan/documents/code/statusbar-networkmanager/bin/connection-disc;;
+    3) /home/jan/documents/code/statusbar-networkmanager/bin/connection-unit;;
+	4) /home/jan/documents/code/statusbar-networkmanager/bin/connection-prev;;
+	5) /home/jan/documents/code/statusbar-networkmanager/bin/connection-next;;	
     *) ;;
 esac
 
-echo "$(bin/connection-info)"
+echo "$(/home/jan/documents/code/statusbar-networkmanager/bin/connection-info)"
