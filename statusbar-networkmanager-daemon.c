@@ -198,7 +198,7 @@ int connect()
 		pclose(sub);
 		connected = 1;
 	}
-	if(strncmp(active_network, "FRZ", 3) == ){
+	if(strncmp(active_network, "FRZ", 3) == 0){
 		sub = popen("wpa_supplicant -B -iwlp5s0 -c/root/fritz.conf", "r");
 		char temp[30] = "TEMPSTRING";
 		sleep(2);
