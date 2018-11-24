@@ -199,7 +199,7 @@ int connect()
 		connected = 1;
 	}
 	if(strncmp(active_network, "FRZ", 3) == ){
-		sub = popen("wpa_supplicant -B -iwlp5s0 -c/root/fritz.conf");
+		sub = popen("wpa_supplicant -B -iwlp5s0 -c/root/fritz.conf", "r");
 		char temp[30] = "TEMPSTRING";
 		sleep(2);
 		fscanf(sub, "%s", &temp[0]);
