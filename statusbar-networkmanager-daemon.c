@@ -198,6 +198,24 @@ int connect()
 		pclose(sub);
 		connected = 1;
 	}
+	if(strncmp(active_network, "FRZ", 3) == ){
+		sub = popen("wpa_supplicant -B -iwlp5s0 -c/root/fritz.conf");
+		char temp[30] = "TEMPSTRING";
+		sleep(2);
+		fscanf(sub, "%s", &temp[0]);
+		if(strncmp(&temp[0], "Successfully", 12) != 0){
+			pclose(sub);
+			sub = popen("i3-nagbar -t warning -m \"Coutldn't initialize wpa_supplicant.\"", "r");
+			sleep(5);
+			pclose(sub);
+			return -1;
+		}
+		pclose(sub);
+		sub = popen("dhclient", "r");
+		fscanf(sub, "%s", &temp[0]); //wait for new-line
+		pclose(sub);
+		connected = 1;
+	}
 	return 1;
 }
 
