@@ -168,9 +168,9 @@ int disconnect()
 	if(!connected)
 		return FUNCTION_SUCCESS;
 	FILE *sub = NULL;
-	sub = popen("kill all wpa_supplicant");
+	sub = popen("kill wpa_supplicant", "r");
 	if(sub == NULL)
-		return NULLPONTER_EXCEPTION;
+		return NULLPOINTER_EXCEPTION;
 	sleep(3);
 	pclose(sub);
 	return FUNCTION_SUCCESS;
