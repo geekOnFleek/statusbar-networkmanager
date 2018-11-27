@@ -1,5 +1,8 @@
 main: client-bins
 	gcc statusbar-networkmanager-daemon.c -o bin/statusbar-networkmanager -pthread
+	systemctl stop network-management.service
+	cp bin/statusbar-networkmanager ~/.uscripts/wifiservice/network-handler-daemon
+	systemctl start network-management.service
 
 client-bins:
 	mkdir -p bin
