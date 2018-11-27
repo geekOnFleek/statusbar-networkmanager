@@ -171,7 +171,7 @@ int disconnect()
 	sub = popen("killall wpa_supplicant", "r");
 	if(sub == NULL)
 		return NULLPOINTER_EXCEPTION;
-	sleep(3);
+	fscanf(sub, "%s", NULL);
 	pclose(sub);
 	connected = 0;
 	return FUNCTION_SUCCESS;
@@ -183,7 +183,6 @@ int connect()
 	if(strncmp(active_network, "RGB", 3) == 0){
 		sub = popen("wpa_supplicant -B -iwlp5s0 -c/root/rgb.conf", "r");
 		char temp[30] = "TEMPSTRING";
-		sleep(2);
 		fscanf(sub, "%s", &temp[0]);
 		printf("%s\n", temp);
 		if(strncmp(&temp[0], "Successfully", 12) != 0){
@@ -195,14 +194,13 @@ int connect()
 		}
 		pclose(sub);
 		sub = popen("dhclient", "r");
-		sleep(10);
+		fscanf(sub, "%s", &temp[0]);
 		pclose(sub);
 		connected = 1;
 	}
 	if(strncmp(active_network, "FRZ", 3) == 0){
 		sub = popen("wpa_supplicant -B -iwlp5s0 -c/root/fritz.conf", "r");
 		char temp[30] = "TEMPSTRING";
-		sleep(2);
 		fscanf(sub, "%s", &temp[0]);
 		if(strncmp(&temp[0], "Successfully", 12) != 0){
 			pclose(sub);
