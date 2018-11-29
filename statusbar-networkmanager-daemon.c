@@ -18,9 +18,6 @@
 
 /*
 	TODO:
-		- reacts on mouse-events from bar: 
-			* scrolling makes network-name change
-			* left-click establishes connection
 		- formats output with suiting colors for signal strength
 	
 */
