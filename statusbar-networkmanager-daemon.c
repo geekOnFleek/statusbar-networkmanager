@@ -28,7 +28,7 @@ struct mesg_buffer {
 }message;
 
 int active = 1;
-int unit = 1;
+int unit = 0; // 1 equals percent, not 1 equals dB
 int connected = 0; //equals 1 if wpa_connection is established
 char **networks;
 char *active_network = NULL;
