@@ -176,6 +176,8 @@ int disconnect()
 
 int connect()
 {
+	if(connected)
+		return FUNCTION_SUCCESS;
 	FILE *sub = NULL;
 	if(strncmp(active_network, "RGB", 3) == 0){
 		sub = popen("wpa_supplicant -B -iwlp5s0 -c/root/rgb.conf", "r");
