@@ -75,9 +75,19 @@ int read_signal()
 		subprocess = popen("grep wlp5s0 /proc/net/wireless | awk '{print int($3)}'", "r");
 	if(subprocess == NULL)
 		return ERROR_ON_SIGNAL_READ;
-	output[4] = (char) fgetc(subprocess);
-	output[5] = (char) fgetc(subprocess);	
+	char temp[2] = "XX";
+	temp[0] = (char) fgetc(subprocess);
+	temp[1] = (char) fgetc(subprocess);
+	//Checking for invalid values
+	if(temp[0] == '\n') {
+		output[4] = ' ';
+		output[5] = '0';
+		pclose(subprocess);
+		return ERROR_ON_SIGNAL_READ;
+	}
 	pclose(subprocess);
+	output[4] = temp[0];
+	output[5] = temp[1];
 	//Checking for unit
 	if(unit) {
 		output[6] = '%';
